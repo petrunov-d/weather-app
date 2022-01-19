@@ -9,10 +9,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetWeatherForCityResponseDto {
 
-	private String cityName;
-	private Double lat;
-	private Double lng;
-	private Double temperatureCelsius;
-	private Double temperatureKelvin;
-	private Double temperatureFahrenheit;
+    private String city;
+    private String country;
+
+    private Double latitude;
+    private Double longitude;
+
+    private Double temperatureCelsius;
+    private Double temperatureKelvin;
+    private Double temperatureFahrenheit;
 }

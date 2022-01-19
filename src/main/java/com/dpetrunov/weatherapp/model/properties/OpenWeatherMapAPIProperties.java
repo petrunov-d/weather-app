@@ -1,4 +1,4 @@
-package com.dpetrunov.weatherapp.config.properties;
+package com.dpetrunov.weatherapp.model.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

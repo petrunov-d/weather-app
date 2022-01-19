@@ -3,3 +3,9 @@ open-weather-map:
   api-version: 2.5
   default-http-timeout-millis: 60000
   api-key: 24e3fa860c58db24391dfa00fde3ce63
+
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
