@@ -9,3 +9,10 @@ spring:
     user:
       name: admin
       password: admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hawtio,jolokia,health
+    enabled-by-default: true

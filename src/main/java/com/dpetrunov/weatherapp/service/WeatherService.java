@@ -1,5 +1,6 @@
 package com.dpetrunov.weatherapp.service;
 
+import com.dpetrunov.weatherapp.model.dto.ExceptionContextDto;
 import com.dpetrunov.weatherapp.model.dto.GetWeatherForCityResponseDto;
 import com.dpetrunov.weatherapp.model.xto.GetWeatherForCityResponseXto;
 import com.dpetrunov.weatherapp.model.xto.OWMMainXto;
@@ -35,8 +36,10 @@ public class WeatherService {
                         .queryParam(QUERY_PARAM_SEARCH_CRITERIA, queryString)
                         .build())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new HttpClientErrorException(response.statusCode(), "Client Error")))
-                .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new HttpServerErrorException(response.statusCode(), "Server Error")))
+                .onStatus(HttpStatus::is4xxClientError, response -> response.bodyToMono(ExceptionContextDto.class)
+                        .flatMap(error -> Mono.error(new HttpClientErrorException(response.statusCode(), error.getMessage()))))
+                .onStatus(HttpStatus::is5xxServerError, response -> response.bodyToMono(ExceptionContextDto.class)
+                        .flatMap(error -> Mono.error(new HttpServerErrorException(response.statusCode(), error.getMessage()))))
                 .bodyToFlux(GetWeatherForCityResponseXto.class)
                 .map(x -> {
 

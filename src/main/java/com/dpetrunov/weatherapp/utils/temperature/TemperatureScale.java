@@ -21,7 +21,7 @@ public enum TemperatureScale {
             }
             case FAHRENHEIT -> {
 
-                return new Fahrenheit(((temperatureInKelvin - Kelvin.ABSOLUTE_ZERO) * 9) / (5 + Fahrenheit.FAHRENHEIT_OFFSET));
+                return new Fahrenheit(((temperatureInKelvin - Kelvin.ABSOLUTE_ZERO) * 1.8) + Fahrenheit.FAHRENHEIT_OFFSET);
             }
         }
 

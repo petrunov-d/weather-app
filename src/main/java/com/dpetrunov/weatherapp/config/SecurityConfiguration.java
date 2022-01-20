@@ -12,12 +12,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableReactiveMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] SWAGGER_WHITELIST = {
-            "/v3/api-docs/**",
-            "/webjars/swagger-ui/**",
-            "/webjars/swagger-ui.html",
-    };
-
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
 
@@ -25,15 +19,13 @@ public class SecurityConfiguration {
         http
             .cors()
             .and()
-            .authorizeExchange()
-                .pathMatchers(SWAGGER_WHITELIST)
-                .permitAll()
-            .and()
-            .authorizeExchange()
-                .anyExchange()
-                .authenticated()
-            .and()
-            .httpBasic();
+            .authorizeExchange((exchanges) -> exchanges
+                    .pathMatchers("/actuator/health")
+                        .permitAll()
+                    .anyExchange()
+                        .authenticated()
+                    .and()
+                    .httpBasic());
 
         // @formatter:off
         return http.build();
